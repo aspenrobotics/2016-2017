@@ -134,7 +134,7 @@ public class MainTeleOpv2 extends OpMode implements Runnable{
     }
     //Main Catapult Arm Power
     private void switchOpMode() throws Exception{
-        if(gamepad1.x){
+        if(gamepad1.x){ //Is the purpose here to switch from ServoState.Inside to ServoState.Outside and vice-versa?
             if(servoState == ServoState.Inside){
                 servoState = ServoState.Outside;
             }
@@ -143,7 +143,7 @@ public class MainTeleOpv2 extends OpMode implements Runnable{
             }
             Thread.sleep(200);
         }
-        if(gamepad1.start){
+        if(gamepad1.start){ //See question Above
             if(cState == CState.Normal){
                 cState = CState.SlowSpeed;
             }

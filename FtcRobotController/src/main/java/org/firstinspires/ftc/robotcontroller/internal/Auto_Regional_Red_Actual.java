@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.robotcontroller.internal;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -8,13 +9,13 @@ import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-
+@Disabled
 @Autonomous(name = "Straight Forward", group = "Auto")
 public class Auto_Regional_Red_Actual extends LinearOpMode{
 
     private DcMotor leftMotor, rightMotor, armMotor, elevatorMotor, rollerMotor;
     private ColorSensor topSensor;
-    private OpticalDistanceSensor opticalSensor;
+    //private OpticalDistanceSensor opticalSensor;
     private boolean readyToFire;
     private Servo beaconHit;
 
@@ -31,12 +32,12 @@ public class Auto_Regional_Red_Actual extends LinearOpMode{
         //Below this is the start
         waitForStart();
         ElapsedTime time = new ElapsedTime();
-        time.reset();
-        moveForwardTwoInches();
-        time.reset();
-        firstTwoShots(time);
+        //time.reset();
+        moveRobot(1, 1, 425, 425, false);//moveForwardTwoInches();
+        firstTwoShots();
         time.reset();
         //turnToWall();
+        //moveRobot(-1,1,500,500);
         time.reset();
         //driveToWall();
         time.reset();
@@ -46,7 +47,7 @@ public class Auto_Regional_Red_Actual extends LinearOpMode{
         time.reset();
         //hitABeacon(time);
         time.reset();
-        backIntoWall();
+        //backIntoWall();
         time.reset();
         //hitABeacon(time);
 
@@ -62,11 +63,12 @@ public class Auto_Regional_Red_Actual extends LinearOpMode{
     }
     //Code for Hitting the Beacon
     private void hitABeacon(ElapsedTime time){
+        moveRobot(.1,.1,5000,5000,true);
         leftMotor.setPower(.1);
         rightMotor.setPower(.1);
         leftMotor.setTargetPosition(5000);
         rightMotor.setTargetPosition(5000);
-        while (topSensor.red() < 2){}
+        while (topSensor.red() < 2){} // Empty Code Block?
         leftMotor.setPower(0);
         rightMotor.setPower(0);
         resetEncoders(leftMotor);
@@ -75,18 +77,13 @@ public class Auto_Regional_Red_Actual extends LinearOpMode{
         rightMotor.setPower(.1);
         leftMotor.setTargetPosition(-500);
         rightMotor.setTargetPosition(-500);
-        while (leftMotor.isBusy() || rightMotor.isBusy()){}
+        while (leftMotor.isBusy() || rightMotor.isBusy()){} //Empty Code Block?
         time.reset();
-        while(time.time() < .6) {
-            beaconHit.setPosition(1);
-        }
-        time.reset();
-        while(time.time() < .6) {
-            beaconHit.setPosition(0);
-        }
-        time.reset();
-        while(time.time() < .6) {
-            beaconHit.setPosition(1);
+        while(time.time() < 1.8) {
+            if(time.time() >= 0.6 && time.time() < 1.2)
+                beaconHit.setPosition(0);
+            else
+                beaconHit.setPosition(1);
         }
         beaconHit.setPosition(0);
         leftMotor.setPower(0);
@@ -97,6 +94,23 @@ public class Auto_Regional_Red_Actual extends LinearOpMode{
 
     }
 
+    private void moveRobot(double leftPower, double rightPower, int leftCount, int rightCount, boolean color){
+        resetEncoders(leftMotor);
+        resetEncoders(rightMotor);
+        leftMotor.setPower(leftPower);
+        rightMotor.setPower(rightPower);
+        leftMotor.setTargetPosition(leftCount);
+        rightMotor.setTargetPosition(rightCount);
+        if(color)
+            while(topSensor.red() < 2){}
+        else
+            while (leftMotor.isBusy() || rightMotor.isBusy()){}
+        leftMotor.setPower(0);
+        rightMotor.setPower(0);
+
+    }
+
+    /*
     //Back Into Wall
     private void backIntoWall(){
         leftMotor.setPower(.6);
@@ -174,13 +188,15 @@ public class Auto_Regional_Red_Actual extends LinearOpMode{
         rState = RobotState.FirstTwoShots;
 
     }
+
+    */
     //Fires The First Two Shots
-    private void firstTwoShots(ElapsedTime time){
-        time.reset();
+    private void firstTwoShots(){
+       // time.reset();
         catapultArmFullPowerNoE();
-        time.reset();
+        ElapsedTime time = new ElapsedTime();
         elevatorMotor.setPower(1);
-        while(time.time() < 2){}
+        while(time.time() < 2){} //Wait two seconds
         elevatorMotor.setPower(0);
         time.reset();
         armMotor.setMaxSpeed(350);
@@ -211,8 +227,8 @@ public class Auto_Regional_Red_Actual extends LinearOpMode{
         if(readyToFire) {
             armMotor.setPower(1);
             Thread.sleep(700);
-            readyToFire = false;
             armMotor.setPower(0);
+            readyToFire = false;
         }
     }
     private void variableSettingsAndInitialization(){
@@ -225,7 +241,7 @@ public class Auto_Regional_Red_Actual extends LinearOpMode{
         rollerMotor = hardwareMap.dcMotor.get("roller_motor");
         elevatorMotor = hardwareMap.dcMotor.get("elevator_motor");
         topSensor = hardwareMap.colorSensor.get("top_sensor");
-        opticalSensor = hardwareMap.opticalDistanceSensor.get("optical_sensor");
+        //opticalSensor = hardwareMap.opticalDistanceSensor.get("optical_sensor");
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         armMotor.setDirection(DcMotor.Direction.REVERSE);

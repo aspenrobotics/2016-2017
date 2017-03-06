@@ -1,12 +1,10 @@
-package org.firstinspires.ftc.robotcontroller.internal;
+package org.firstinspires.ftc.robotcontroller.internal.SuperRegionals;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
 //import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 
@@ -19,7 +17,6 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
     private DcMotor leftMotor, rightMotor, armMotor, elevatorMotor, rollerMotor, liftMotor, liftMotorTwo;
     private ColorSensor topSensor;
     private Servo beaconHit;
-    ElapsedTime time = new ElapsedTime();
     private enum CState{
         Normal, SlowSpeed
     }
@@ -48,17 +45,12 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
         topSensor = hardwareMap.colorSensor.get("top_sensor");
         liftMotor = hardwareMap.dcMotor.get("lift_motor");
         liftMotorTwo = hardwareMap.dcMotor.get("lift_motor_2");
-        //bottomSensor = hardwareMap.colorSensor.get("bottom_sensor");
         leftMotor.setDirection(DcMotor.Direction.REVERSE);
         rightMotor.setDirection(DcMotor.Direction.FORWARD);
         armMotor.setDirection(DcMotor.Direction.REVERSE);
         liftMotor.setDirection(DcMotor.Direction.FORWARD);
         liftMotorTwo.setDirection(DcMotor.Direction.REVERSE);
         topSensor.enableLed(false);
-        //bottomSensor.enableLed(false);
-        //Declares the thread for arm control
-
-
         // Set all motors to zero power
         leftMotor.setPower(0);
         rightMotor.setPower(0);
@@ -72,15 +64,8 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
         elevatorMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         liftMotorTwo.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        ///////////////
-        ///////////////
-        ////////////
-        ////////////
-        /////////////
-        ///////////////
-        ////////////
         //Change this for max speed
-        armMotor.setMaxSpeed(900);
+        armMotor.setMaxSpeed(1800);
 
 
 
@@ -180,14 +165,14 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
     }
     private void catapultArmFullPower() throws Exception {
         if(gamepad1.right_bumper) {
-            armMotor.setMaxSpeed(900);
+            armMotor.setMaxSpeed(1800);
             armMotor.setPower(1);
             Thread.sleep(600);
         }
     }
     private void catapultReturn(){
         if(gamepad1.left_bumper) {
-            armMotor.setMaxSpeed(400);
+            armMotor.setMaxSpeed(800);
             armMotor.setPower(-1);
         }else{
             armMotor.setPower(0);
