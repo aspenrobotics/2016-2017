@@ -172,8 +172,8 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
     }
     private void catapultReturn(){
         if(gamepad1.left_bumper) {
-            armMotor.setMaxSpeed(800);
-            armMotor.setPower(-1);
+            armMotor.setMaxSpeed(1800);
+            armMotor.setPower(-.5);
         }else{
             armMotor.setPower(0);
         }
