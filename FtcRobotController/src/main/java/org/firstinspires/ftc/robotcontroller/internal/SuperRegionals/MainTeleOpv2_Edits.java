@@ -66,6 +66,7 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
         liftMotorTwo.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //Change this for max speed
         armMotor.setMaxSpeed(1800);
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
 
@@ -101,7 +102,6 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
 
         motorPower(left, right);
         catapultReturn();
-        catapultUnlock();
         elevatorPower();
         liftMotorControl();
         servoControl();
@@ -164,7 +164,7 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
         }
     }
     private void catapultArmFullPower() throws Exception {
-        if(gamepad1.right_bumper) {
+        if(gamepad1.right_bumper){
             armMotor.setMaxSpeed(1800);
             armMotor.setPower(1);
             Thread.sleep(600);
@@ -172,9 +172,13 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
     }
     private void catapultReturn(){
         if(gamepad1.left_bumper) {
-            armMotor.setMaxSpeed(1800);
-            armMotor.setPower(-.5);
-        }else{
+            armMotor.setMaxSpeed(900);
+            armMotor.setPower(-1);
+        }else if(gamepad1.y){
+            armMotor.setMaxSpeed(900);
+            armMotor.setPower(1);
+        }
+        else{
             armMotor.setPower(0);
         }
     }
@@ -193,15 +197,7 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
         }
     }
     //unlocks catapult
-    private void catapultUnlock(){
-        if(gamepad1.y){
-            armMotor.setMaxSpeed(400);
-            armMotor.setPower(1);
-        }
-        else{
-            armMotor.setPower(0);
-        }
-    }
+
 
     //Controls Motor Power
     private void motorPower(float left, float right){
