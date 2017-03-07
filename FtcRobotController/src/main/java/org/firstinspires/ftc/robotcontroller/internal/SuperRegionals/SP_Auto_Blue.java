@@ -57,11 +57,10 @@ public class SP_Auto_Blue extends LinearOpMode{
         rightMotor.setPower(0);
     }
     private void multipleBeaconHit(){
-        hitBeacon(1, 300); //Hits Beacons
-        hitBeacon(0, 300);
-        hitBeacon(1, 300);
-        hitBeacon(0, 300);
-        hitBeacon(.5, 300);
+        hitBeacon(1, 1000); //Hits Beacons
+        hitBeacon(.5, 500);
+        hitBeacon(1, 500);
+        hitBeacon(0, 1000);
     }
     //This needs an int from 0 -1
     private void hitBeacon(double position, int sleepTime) {
@@ -79,11 +78,11 @@ public class SP_Auto_Blue extends LinearOpMode{
         while(time.time() < 2){} //Wait two seconds
         elevatorMotor.setPower(0);
         time.reset();
-        armMotor.setMaxSpeed(350);
+        armMotor.setMaxSpeed(900);
         armMotor.setPower(-1);
         while(time.time() < .7){}
         armMotor.setPower(0);
-        armMotor.setMaxSpeed(900);
+        armMotor.setMaxSpeed(1800);
         time.reset();
         while (time.time() < .3){}
         readyToFire = true;

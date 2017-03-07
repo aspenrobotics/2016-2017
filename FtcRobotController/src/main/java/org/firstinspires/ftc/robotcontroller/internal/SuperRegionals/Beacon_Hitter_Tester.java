@@ -53,11 +53,10 @@ public class Beacon_Hitter_Tester extends LinearOpMode{
         rightMotor.setPower(0);
     }
     private void multipleBeaconHit(){
-        hitBeacon(0, 600); //Hits Beacons
-        hitBeacon(1, 600);
-        hitBeacon(0, 600);
-        hitBeacon(1, 600);
-        hitBeacon(.5, 600);
+        hitBeacon(1, 1000); //Hits Beacons
+        hitBeacon(.5, 500);
+        hitBeacon(1, 500);
+        hitBeacon(0, 1000);
     }
     //This needs an int from 0 -1
     private void hitBeacon(double position, int sleepTime) {
