@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 //import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
@@ -49,7 +50,7 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
         rightMotor.setDirection(DcMotor.Direction.FORWARD);
         armMotor.setDirection(DcMotor.Direction.REVERSE);
         liftMotor.setDirection(DcMotor.Direction.FORWARD);
-        liftMotorTwo.setDirection(DcMotor.Direction.REVERSE);
+        liftMotorTwo.setDirection(DcMotor.Direction.FORWARD);
         topSensor.enableLed(false);
         // Set all motors to zero power
         leftMotor.setPower(0);
