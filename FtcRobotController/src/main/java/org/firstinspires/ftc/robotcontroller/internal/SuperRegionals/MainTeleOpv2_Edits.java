@@ -164,7 +164,7 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
     }
     private void catapultArmFullPower() throws Exception {
         if(gamepad1.right_bumper) {
-            armMotor.setMaxSpeed(1800);
+            armMotor.setMaxSpeed(1600);
             armMotor.setPower(1);
             Thread.sleep(600);
         }
