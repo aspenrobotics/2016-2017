@@ -30,7 +30,6 @@ public class SP_Auto_Blue extends LinearOpMode{
         moveRobot(.3, .3, 1000, 1000, false, .9); // Parallel with Wall
         moveRobot(.3, .3, -1000, -1000, false, 100); // Back into Wall
         moveRobot(.1, .1, -3000, -3000, true, 5); //Test for Beacons
-        moveRobot(.1, .1, -500, -500, false, 100); //Align to Hit Beacon
         multipleBeaconHit();
 
 
