@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
+//Code For Super Regional Autonomous
 @Autonomous(name = "Blue Auto", group = "Auto")
 public class SP_Auto_Blue extends LinearOpMode{
 
@@ -15,7 +15,6 @@ public class SP_Auto_Blue extends LinearOpMode{
     ColorSensor topSensor;
     boolean readyToFire;
     Servo beaconHit, servoBallControl;
-
 
     @Override
     public void runOpMode(){

@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 /**
  * Created by AHSRobotics on 3/6/2017.
  */
-
+@Disabled
 @TeleOp(name = "Test", group = "Tester")
 public class ArmTest extends OpMode {
     private DcMotor leftMotor, rightMotor, armMotor, elevatorMotor, rollerMotor, liftMotor, liftMotorTwo;

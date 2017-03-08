@@ -2,12 +2,14 @@ package org.firstinspires.ftc.robotcontroller.internal.SuperRegionals;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 //This Autonomous is purely to test the beacons once the robot is lined up have lined up.
+@Disabled
 @Autonomous(name = "Beacon Test", group = "Auto")
 public class Beacon_Hitter_Tester extends LinearOpMode{
 
