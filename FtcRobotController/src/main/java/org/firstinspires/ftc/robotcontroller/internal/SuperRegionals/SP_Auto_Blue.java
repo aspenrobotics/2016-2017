@@ -23,13 +23,14 @@ public class SP_Auto_Blue extends LinearOpMode{
         variableSettingsAndInitialization(); //Variable Initialization
 
         waitForStart();
-        moveRobot(1, 1, 425, 425, false, 100); //Move Forward an Inch
+        moveRobot(1, 1, 425, 425, false, 10); //Move Forward an Inch
         firstTwoShots(); //Fire Two Shots
-        moveRobot(1, 1, 900, 0, false, 100); //Turn To Wall
-        moveRobot(1, 1, 6700, 6700, false, 100); //Move to Wall
+        moveRobot(1, 1, 800, 0, false, 10); //Turn To Wall
+        moveRobot(1, 1, 6700, 6700, false, 10); //Move to Wall
         moveRobot(.3, .3, 1000, 1000, false, .9); // Parallel with Wall
-        moveRobot(.3, .3, -1000, -1000, false, 100); // Back into Wall
-        moveRobot(.1, .1, -3000, -3000, true, 5); //Test for Beacons
+        moveRobot(.34, .3, -500, -500, false, 10); // Back into Wall
+        moveRobot(.3, .3, -500, -500, false, 10);
+        moveRobot(.13, .1, -3000, -3000, true, 5); //Test for Beacons
         multipleBeaconHit();
 
 
@@ -56,10 +57,10 @@ public class SP_Auto_Blue extends LinearOpMode{
         rightMotor.setPower(0);
     }
     private void multipleBeaconHit(){
-        hitBeacon(1, 1000); //Hits Beacons
+        hitBeacon(0, 1000); //Hits Beacons
         hitBeacon(.5, 500);
-        hitBeacon(1, 500);
-        hitBeacon(0, 1000);
+        hitBeacon(0, 500);
+        hitBeacon(1, 1000);
     }
     //This needs an int from 0 -1
     private void hitBeacon(double position, int sleepTime) {
@@ -81,7 +82,6 @@ public class SP_Auto_Blue extends LinearOpMode{
         armMotor.setPower(-1);
         while(time.time() < .7){}
         armMotor.setPower(0);
-        armMotor.setMaxSpeed(1800);
         time.reset();
         while (time.time() < .3){}
         readyToFire = true;
@@ -99,6 +99,7 @@ public class SP_Auto_Blue extends LinearOpMode{
     //Full Power Catapult With Exception
     private void catapultArmFullPower() throws Exception{
         if(readyToFire) {
+            armMotor.setMaxSpeed(1500);
             armMotor.setPower(1);
             Thread.sleep(700);
             armMotor.setPower(0);
