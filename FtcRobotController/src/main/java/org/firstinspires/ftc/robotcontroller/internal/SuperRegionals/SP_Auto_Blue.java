@@ -25,12 +25,12 @@ public class SP_Auto_Blue extends LinearOpMode{
         waitForStart();
         moveRobot(1, 1, 425, 425, false, 10); //Move Forward an Inch
         firstTwoShots(); //Fire Two Shots
-        moveRobot(1, 1, 800, 0, false, 10); //Turn To Wall
+        moveRobot(1, 1, 900, 0, false, 10); //Turn To Wall
         moveRobot(1, 1, 6700, 6700, false, 10); //Move to Wall
         moveRobot(.3, .3, 1000, 1000, false, .9); // Parallel with Wall
-        moveRobot(.34, .3, -500, -500, false, 10); // Back into Wall
-        moveRobot(.3, .3, -500, -500, false, 10);
-        moveRobot(.13, .1, -3000, -3000, true, 5); //Test for Beacons
+        moveRobot(.3, .3, -500, 0, false, 5);
+        moveRobot(.1, .1, -1000, -1000, false, 10); // Back into Wall
+        moveRobot(.1, .1, -3000, -3000, true, 5); //Test for Beacons
         multipleBeaconHit();
 
 
@@ -78,7 +78,7 @@ public class SP_Auto_Blue extends LinearOpMode{
         while(time.time() < 2){} //Wait two seconds
         elevatorMotor.setPower(0);
         time.reset();
-        armMotor.setMaxSpeed(900);
+        armMotor.setMaxSpeed(700);
         armMotor.setPower(-1);
         while(time.time() < .7){}
         armMotor.setPower(0);
