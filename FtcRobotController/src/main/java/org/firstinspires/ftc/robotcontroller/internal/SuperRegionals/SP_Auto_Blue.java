@@ -14,7 +14,7 @@ public class SP_Auto_Blue extends LinearOpMode{
     DcMotor leftMotor, rightMotor, armMotor, elevatorMotor;
     ColorSensor topSensor;
     boolean readyToFire;
-    Servo beaconHit;
+    Servo beaconHit, servoBallControl;
 
 
     @Override
@@ -128,6 +128,7 @@ public class SP_Auto_Blue extends LinearOpMode{
         resetEncoders(rightMotor);
         resetEncoders(leftMotor);
         beaconHit = hardwareMap.servo.get("main_servo");
+        servoBallControl = hardwareMap.servo.get("ball_servo");
         armMotor.setMaxSpeed(900);
     }
     private boolean encoderReset(DcMotor motor){

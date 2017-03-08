@@ -16,15 +16,16 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class MainTeleOpv2_Edits extends OpMode implements Runnable{
     private DcMotor leftMotor, rightMotor, armMotor, elevatorMotor, rollerMotor, liftMotor, liftMotorTwo;
     private ColorSensor topSensor;
-    private Servo beaconHit;
+    private Servo beaconHit, servoBallControl;
     private enum CState{
         Normal, SlowSpeed
     }
     private enum ServoState{
         Inside, Outside
     }
+
     private CState cState;
-    private ServoState servoState;
+    private ServoState servoState, ballServoState;
 
     @Override
     public void run(){
@@ -36,6 +37,7 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
         beaconHit = hardwareMap.servo.get("main_servo");
         cState = CState.Normal;
         servoState = ServoState.Inside;
+        ballServoState = ServoState.Inside;
         // Define and Initialize Motors
         leftMotor = hardwareMap.dcMotor.get("left_drive");
         rightMotor = hardwareMap.dcMotor.get("right_drive");
@@ -50,6 +52,7 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
         armMotor.setDirection(DcMotor.Direction.REVERSE);
         liftMotor.setDirection(DcMotor.Direction.FORWARD);
         liftMotorTwo.setDirection(DcMotor.Direction.REVERSE);
+        servoBallControl = hardwareMap.servo.get("ball_servo");
         topSensor.enableLed(false);
         // Set all motors to zero power
         leftMotor.setPower(0);
@@ -137,6 +140,15 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
             }
             Thread.sleep(200);
         }
+        if(gamepad1.y || gamepad2.y){
+            if(ballServoState == ServoState.Inside){
+                ballServoState = ServoState.Outside;
+            }
+            else if(ballServoState == ServoState.Outside){
+                ballServoState = ServoState.Inside;
+            }
+            Thread.sleep(200);
+        }
 
 
     }
@@ -146,6 +158,12 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
         }
         if(servoState == ServoState.Outside){
             beaconHit.setPosition(180);
+        }
+        if(ballServoState == ServoState.Inside){
+            servoBallControl.setPosition(0);
+        }
+        if(ballServoState == ServoState.Outside){
+            servoBallControl.setPosition(180);
         }
     }
     private void elevatorPower(){
@@ -173,11 +191,7 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
         if(gamepad1.left_bumper) {
             armMotor.setMaxSpeed(900);
             armMotor.setPower(-1);
-        }
-        else if(gamepad1.y){
-            armMotor.setMaxSpeed(900);
-            armMotor.setPower(1);
-        }else{
+        } else{
             armMotor.setPower(0);
         }
     }
