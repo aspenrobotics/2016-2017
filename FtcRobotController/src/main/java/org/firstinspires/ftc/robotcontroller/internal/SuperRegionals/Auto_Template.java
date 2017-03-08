@@ -2,14 +2,17 @@ package org.firstinspires.ftc.robotcontroller.internal.SuperRegionals;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
 //Code For Super Regional Autonomous
-@Autonomous(name = "Blue Auto", group = "Auto")
-public class SP_Auto_Blue extends LinearOpMode{
+@Disabled
+@Autonomous(name = "Auto BluePrint", group = "Auto")
+public class Auto_Template extends LinearOpMode{
 
     DcMotor leftMotor, rightMotor, armMotor, elevatorMotor;
     ColorSensor topSensor;
@@ -22,15 +25,6 @@ public class SP_Auto_Blue extends LinearOpMode{
         variableSettingsAndInitialization(); //Variable Initialization
 
         waitForStart();
-        moveRobot(1, 1, 425, 425, false, 10); //Move Forward an Inch
-        firstTwoShots(); //Fire Two Shots
-        moveRobot(1, 1, 900, 0, false, 10); //Turn To Wall
-        moveRobot(1, 1, 6700, 6700, false, 10); //Move to Wall
-        moveRobot(.3, .3, 1000, 1000, false, .9); // Parallel with Wall
-        moveRobot(.3, .3, -500, 0, false, 5);
-        moveRobot(.1, .1, -1000, -1000, false, 10); // Back into Wall
-        moveRobot(.1, .1, -3000, -3000, true, 5); //Test for Beacons
-        multipleBeaconHit();
 
 
 

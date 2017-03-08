@@ -154,13 +154,13 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
     }
     private void servoControl(){
         if(servoState == ServoState.Inside){
-            beaconHit.setPosition(0);
+            beaconHit.setPosition(.1);
         }
         if(servoState == ServoState.Outside){
             beaconHit.setPosition(1);
         }
         if(ballServoState == ServoState.Inside){
-            servoBallControl.setPosition(.5);
+            servoBallControl.setPosition(.4);
         }
         if(ballServoState == ServoState.Outside){
             servoBallControl.setPosition(0);
