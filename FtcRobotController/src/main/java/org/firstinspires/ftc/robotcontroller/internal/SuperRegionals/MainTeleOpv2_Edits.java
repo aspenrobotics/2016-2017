@@ -119,7 +119,7 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
     }
     //Main Catapult Arm Power
     private void switchOpMode() throws Exception{
-        if(gamepad1.x){
+        if(gamepad1.x || gamepad2.x){
             if(servoState == ServoState.Inside){
                 servoState = ServoState.Outside;
             }
@@ -149,11 +149,11 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
         }
     }
     private void elevatorPower(){
-        if(gamepad1.a){
+        if(gamepad1.a || gamepad2.a){
             elevatorMotor.setPower(1);
             rollerMotor.setPower(1);
         }
-        else if(gamepad1.b) {
+        else if(gamepad1.b || gamepad2.b) {
             elevatorMotor.setPower(-1);
             rollerMotor.setPower(-1);
         }
@@ -171,22 +171,22 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
     }
     private void catapultReturn(){
         if(gamepad1.left_bumper) {
-            armMotor.setMaxSpeed(1800);
-            armMotor.setPower(-.5);
+            armMotor.setMaxSpeed(900);
+            armMotor.setPower(-1);
         }
         else if(gamepad1.y){
-            armMotor.setMaxSpeed(400);
+            armMotor.setMaxSpeed(900);
             armMotor.setPower(1);
         }else{
             armMotor.setPower(0);
         }
     }
     private void liftMotorControl(){
-        if(gamepad1.right_trigger > .2){
+        if(gamepad1.right_trigger > .2 || gamepad2.right_trigger >.2){
             liftMotor.setPower(1);
             liftMotorTwo.setPower(1);
         }
-        if(gamepad1.left_trigger > .2){
+        if(gamepad1.left_trigger > .2 || gamepad2.left_trigger >.2){
             liftMotor.setPower(-1);
             liftMotorTwo.setPower(-1);
         }
