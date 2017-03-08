@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 ///////////////////////////////////////////////////////////
 //               Main TeleOp Program                     //
 ///////////////////////////////////////////////////////////
-@TeleOp(name = "MainTeleOp", group = "Tester")
+@TeleOp(name = "Concept: MainTeleOpv2", group = "Tester")
 //@Disabled
 public class MainTeleOpv2_Edits extends OpMode implements Runnable{
     private DcMotor leftMotor, rightMotor, armMotor, elevatorMotor, rollerMotor, liftMotor, liftMotorTwo;
@@ -49,7 +49,7 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
         rightMotor.setDirection(DcMotor.Direction.FORWARD);
         armMotor.setDirection(DcMotor.Direction.REVERSE);
         liftMotor.setDirection(DcMotor.Direction.FORWARD);
-        liftMotorTwo.setDirection(DcMotor.Direction.FORWARD);
+        liftMotorTwo.setDirection(DcMotor.Direction.REVERSE);
         topSensor.enableLed(false);
         // Set all motors to zero power
         leftMotor.setPower(0);
@@ -66,7 +66,6 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
         liftMotorTwo.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //Change this for max speed
         armMotor.setMaxSpeed(1800);
-        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
 
@@ -116,6 +115,7 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
         } catch (Exception e) {
             e.printStackTrace();
         }
+        telemetry.addData("Encoder Position at 600ms: " + armMotor.getCurrentPosition(), armMotor);
     }
     //Main Catapult Arm Power
     private void switchOpMode() throws Exception{
@@ -163,25 +163,24 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
         }
     }
     private void catapultArmFullPower() throws Exception {
-        if(gamepad1.right_bumper){
+        if(gamepad1.right_bumper) {
             armMotor.setMaxSpeed(1800);
             armMotor.setPower(1);
             Thread.sleep(600);
         }
     }
-    private void catapultReturn() {
-        if (gamepad1.left_bumper) {
-            armMotor.setMaxSpeed(900);
-            armMotor.setPower(-1);
+    private void catapultReturn(){
+        if(gamepad1.left_bumper) {
+            armMotor.setMaxSpeed(1800);
+            armMotor.setPower(-.5);
         }
-        else if (gamepad1.y) {
-                armMotor.setMaxSpeed(900);
-                armMotor.setPower(1);
+        else if(gamepad1.y){
+            armMotor.setMaxSpeed(400);
+            armMotor.setPower(1);
+        }else{
+            armMotor.setPower(0);
         }
-        else{
-                armMotor.setPower(0);
-            }
-        }
+    }
     private void liftMotorControl(){
         if(gamepad1.right_trigger > .2){
             liftMotor.setPower(1);
@@ -196,8 +195,6 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
             liftMotorTwo.setPower(0);
         }
     }
-    //unlocks catapult
-
 
     //Controls Motor Power
     private void motorPower(float left, float right){
@@ -212,4 +209,5 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
     }
 
 }
+
 
