@@ -147,7 +147,7 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
             else{
                 ballServoState = ServoState.Inside;
             }
-            
+
         }
 
 
@@ -160,10 +160,10 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
             beaconHit.setPosition(1);
         }
         if(ballServoState == ServoState.Inside){
-            servoBallControl.setPosition(.4);
+            servoBallControl.setPosition(.45);
         }
         if(ballServoState == ServoState.Outside){
-            servoBallControl.setPosition(0);
+            servoBallControl.setPosition(.1);
         }
     }
     private void elevatorPower(){

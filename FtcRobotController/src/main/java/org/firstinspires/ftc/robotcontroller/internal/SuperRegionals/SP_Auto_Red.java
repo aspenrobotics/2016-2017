@@ -25,7 +25,7 @@ public class SP_Auto_Red extends LinearOpMode{
         variableSettingsAndInitialization(); //Variable Initialization
 
         waitForStart();
-        servoBallControl.setPosition(.4); //Initial Servo Position
+        servoBallControl.setPosition(.45); //Initial Servo Position
         moveRobot(.5, .5, 425, 425, false, 10); //Move Forward an Inch
         firstTwoShots(); //Fire Two Shots
         moveRobot(.3, .3, 425, 425, false, 10); //Move Forward a Bit
@@ -74,7 +74,7 @@ public class SP_Auto_Red extends LinearOpMode{
         ElapsedTime time = new ElapsedTime();
         servoBallControl.setPosition(.1);
         time.reset();
-        while (time.time() < .5){}
+        while (time.time() < .4){}
         time.reset();
         armMotor.setMaxSpeed(700);
         armMotor.setPower(-1);
@@ -83,7 +83,7 @@ public class SP_Auto_Red extends LinearOpMode{
         time.reset();
         while (time.time() < .3){}
         readyToFire = true;
-        servoBallControl.setPosition(.4);
+        servoBallControl.setPosition(.45);
         catapultArmFullPowerNoE();
     }
     //Full Power for 550 milliseconds

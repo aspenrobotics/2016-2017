@@ -19,6 +19,7 @@ public class SP_Auto_Blue extends LinearOpMode{
     public void runOpMode(){
         variableSettingsAndInitialization(); //Variable Initialization
         waitForStart();
+        servoBallControl.setPosition(.45);
         moveRobot(.5, .5, 425, 425, false, 10); //Move Forward an Inch
         firstTwoShots(); //Fire Two Shots
         moveRobot(1, 1, 900, 0, false, 10); //Turn To Wall
@@ -57,7 +58,7 @@ public class SP_Auto_Blue extends LinearOpMode{
     }
     //This needs an int from 0 -1
     private void hitBeacon(double position, int sleepTime) {
-            beaconHit.setPosition(position);
+        beaconHit.setPosition(position);
             try {
                 Thread.sleep(sleepTime);
             } catch (Exception e) {
@@ -68,12 +69,9 @@ public class SP_Auto_Blue extends LinearOpMode{
         catapultArmFullPowerNoE();
         ElapsedTime time = new ElapsedTime();
         elevatorMotor.setPower(1);
-        servoBallControl.setPosition(.4);
-        while(time.time() < 2){} //Wait two seconds
-        elevatorMotor.setPower(0);
         servoBallControl.setPosition(.1);
         time.reset();
-        while (time.time() < .2){}
+        while (time.time() < .4){}
         time.reset();
         armMotor.setMaxSpeed(700);
         armMotor.setPower(-1);
@@ -82,7 +80,7 @@ public class SP_Auto_Blue extends LinearOpMode{
         time.reset();
         while (time.time() < .3){}
         readyToFire = true;
-        servoBallControl.setPosition(.4);
+        servoBallControl.setPosition(.45);
         catapultArmFullPowerNoE();
     }
     //Full Power for 550 milliseconds
