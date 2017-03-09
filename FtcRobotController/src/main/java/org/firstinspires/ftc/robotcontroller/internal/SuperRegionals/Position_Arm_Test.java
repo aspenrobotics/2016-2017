@@ -10,9 +10,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 //Code For Super Regional Autonomous
-
-@Autonomous(name = "Red Auto", group = "Auto")
-public class SP_Auto_Red extends LinearOpMode{
+@Autonomous(name = "Run To Position Test", group = "Auto")
+public class Position_Arm_Test extends LinearOpMode{
 
     DcMotor leftMotor, rightMotor, armMotor, elevatorMotor;
     ColorSensor topSensor;
@@ -25,15 +24,7 @@ public class SP_Auto_Red extends LinearOpMode{
         variableSettingsAndInitialization(); //Variable Initialization
 
         waitForStart();
-        servoBallControl.setPosition(.40); //Initial Servo Position
-        moveRobot(.5, .5, 425, 425, false, 10); //Move Forward an Inch
-        firstTwoShots(); //Fire Two Shots
-        moveRobot(.3, .3, 425, 425, false, 10); //Move Forward a Bit
-        moveRobot(.4, .4, 1900, -1900, false, 10); //Large Turn
-        moveRobot(.7, .7, -3000, -3000, false, 10); //Move To Wall
-        moveRobot(.4, .4, 500, -500, false, 10); //Turn to wall again
-        moveRobot(.7, 1, -2000, -2500, false, 100);
-        moveRobot(.4, .4, 3000, 3000, false, 100);
+
 
 
     }
@@ -72,15 +63,18 @@ public class SP_Auto_Red extends LinearOpMode{
                 e.printStackTrace();
             }
     }
-    private void firstTwoShots() {
+    private void firstTwoShots(){
         catapultArmFullPowerNoE();
         ElapsedTime time = new ElapsedTime();
+        elevatorMotor.setPower(1);
+        servoBallControl.setPosition(.4);
+        while(time.time() < 2){} //Wait two seconds
+        elevatorMotor.setPower(0);
         servoBallControl.setPosition(.1);
         time.reset();
-        while (time.time() < .6){}
+        while (time.time() < .2){}
         time.reset();
-        armMotor.setMaxSpeed(700);
-        armMotor.setPower(-1);
+        setMotorToPostiton(armMotor);
         while(time.time() < .7){}
         armMotor.setPower(0);
         time.reset();
@@ -91,6 +85,7 @@ public class SP_Auto_Red extends LinearOpMode{
     }
     //Full Power for 550 milliseconds
     private void catapultArmFullPowerNoE(){
+        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         try{
             catapultArmFullPower();
         }
@@ -107,6 +102,13 @@ public class SP_Auto_Red extends LinearOpMode{
             armMotor.setPower(0);
             readyToFire = false;
         }
+    }
+    private void setMotorToPostiton(DcMotor motor){
+        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        int actualPosition = (int)motor.getCurrentPosition()%70 + (int)motor.getCurrentPosition();
+        motor.setTargetPosition(actualPosition);
+        motor.setPower(.5);
+        while(motor.isBusy()){}
     }
     private void variableSettingsAndInitialization(){
         //////////////////////////////////////////////////////////////////////
@@ -125,13 +127,15 @@ public class SP_Auto_Red extends LinearOpMode{
         //setting mode
         leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         elevatorMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         resetEncoders(rightMotor);
         resetEncoders(leftMotor);
+        resetEncoders(armMotor);
         beaconHit = hardwareMap.servo.get("main_servo");
         servoBallControl = hardwareMap.servo.get("ball_servo");
         armMotor.setMaxSpeed(900);
+
     }
     private boolean encoderReset(DcMotor motor){
         return (motor.getCurrentPosition() == 0);
