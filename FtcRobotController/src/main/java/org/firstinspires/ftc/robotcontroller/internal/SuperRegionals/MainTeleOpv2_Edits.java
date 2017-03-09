@@ -144,10 +144,10 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
             if(ballServoState == ServoState.Inside){
                 ballServoState = ServoState.Outside;
             }
-            else if(ballServoState == ServoState.Outside){
+            else{
                 ballServoState = ServoState.Inside;
             }
-            Thread.sleep(200);
+            
         }
 
 

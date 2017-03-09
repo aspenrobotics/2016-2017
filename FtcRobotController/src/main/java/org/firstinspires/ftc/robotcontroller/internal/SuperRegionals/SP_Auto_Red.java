@@ -1,14 +1,18 @@
 package org.firstinspires.ftc.robotcontroller.internal.SuperRegionals;
 
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
 //Code For Super Regional Autonomous
-@Autonomous(name = "Blue Auto", group = "Auto")
-public class SP_Auto_Blue extends LinearOpMode{
+
+@Autonomous(name = "Red Auto", group = "Auto")
+public class SP_Auto_Red extends LinearOpMode{
 
     DcMotor leftMotor, rightMotor, armMotor, elevatorMotor;
     ColorSensor topSensor;
@@ -17,17 +21,18 @@ public class SP_Auto_Blue extends LinearOpMode{
 
     @Override
     public void runOpMode(){
+
         variableSettingsAndInitialization(); //Variable Initialization
+
         waitForStart();
+        servoBallControl.setPosition(.4); //Initial Servo Position
         moveRobot(.5, .5, 425, 425, false, 10); //Move Forward an Inch
         firstTwoShots(); //Fire Two Shots
-        moveRobot(1, 1, 900, 0, false, 10); //Turn To Wall
-        moveRobot(1, 1, 6700, 6700, false, 10); //Move to Wall
-        moveRobot(.3, .3, 1000, 1000, false, .9); // Parallel with Wall
-        moveRobot(.3, .3, -500, 0, false, 5);
-        moveRobot(.1, .1, -1000, -1000, false, 10); // Back into Wall
-        moveRobot(.1, .1, -3000, -3000, true, 5); //Test for Beacons
-        multipleBeaconHit();
+        moveRobot(.3, .3, 425, 425, false, 10); //Move Forward a Bit
+        moveRobot(.3, .3, 1800, -1800, false, 10); //Large Turn
+
+
+
     }
     private void moveRobot(double leftPower, double rightPower, int leftCount, int rightCount, boolean color, double maxTime){
         resetEncoders(leftMotor);
@@ -64,16 +69,12 @@ public class SP_Auto_Blue extends LinearOpMode{
                 e.printStackTrace();
             }
     }
-    private void firstTwoShots(){
+    private void firstTwoShots() {
         catapultArmFullPowerNoE();
         ElapsedTime time = new ElapsedTime();
-        elevatorMotor.setPower(1);
-        servoBallControl.setPosition(.4);
-        while(time.time() < 2){} //Wait two seconds
-        elevatorMotor.setPower(0);
         servoBallControl.setPosition(.1);
         time.reset();
-        while (time.time() < .2){}
+        while (time.time() < .5){}
         time.reset();
         armMotor.setMaxSpeed(700);
         armMotor.setPower(-1);
