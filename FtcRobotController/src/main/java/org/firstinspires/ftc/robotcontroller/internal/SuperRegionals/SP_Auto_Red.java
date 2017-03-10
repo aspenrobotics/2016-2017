@@ -23,9 +23,10 @@ public class SP_Auto_Red extends LinearOpMode{
     public void runOpMode(){
 
         variableSettingsAndInitialization(); //Variable Initialization
-
+        servoBallControl.setPosition(0);
+        beaconHit.setPosition(1);
         waitForStart();
-        servoBallControl.setPosition(.40); //Initial Servo Position
+         //Initial Servo Position
         moveRobot(.5, .5, 425, 425, false, 10); //Move Forward an Inch
         firstTwoShots(); //Fire Two Shots
         moveRobot(.3, .3, 425, 425, false, 10); //Move Forward a Bit
@@ -75,7 +76,7 @@ public class SP_Auto_Red extends LinearOpMode{
     private void firstTwoShots() {
         catapultArmFullPowerNoE();
         ElapsedTime time = new ElapsedTime();
-        servoBallControl.setPosition(.1);
+        servoBallControl.setPosition(1);
         time.reset();
         while (time.time() < .6){}
         time.reset();
@@ -86,7 +87,7 @@ public class SP_Auto_Red extends LinearOpMode{
         time.reset();
         while (time.time() < .3){}
         readyToFire = true;
-        servoBallControl.setPosition(.4);
+        servoBallControl.setPosition(0);
         catapultArmFullPowerNoE();
     }
     //Full Power for 550 milliseconds
