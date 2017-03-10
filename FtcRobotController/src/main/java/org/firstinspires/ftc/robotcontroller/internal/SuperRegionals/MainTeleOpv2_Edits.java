@@ -156,7 +156,6 @@ public class MainTeleOpv2_Edits extends OpMode implements Runnable{
         if(servoState == ServoState.Inside){
             beaconHit.setPosition(.1);
         }
-        if(servoState == ServoState.Outside){
             beaconHit.setPosition(1);
         }
         if(ballServoState == ServoState.Inside){
